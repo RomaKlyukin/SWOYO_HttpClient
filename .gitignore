@@ -1,0 +1,7 @@
+#python stuff
+myenv/
+__pycache__/
+
+#ide stuff
+.vscode
+.idea
