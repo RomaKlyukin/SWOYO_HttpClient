@@ -11,8 +11,8 @@ class HttpRequest:
         self.body = body
 
     def to_bytes(self) -> bytes:
-        starting_line = f"{self.method} + {self.target} + {self.version}\r\n"
-        headers = "".join(f"{key}: {value}\r\n" for key, value in self.headers.item())
+        starting_line = f"{self.method} {self.target} {self.version}\r\n"
+        headers = "".join(f"{key}: {value}\r\n" for key, value in self.headers.items())
         body = json.dumps(self.body)
         return (starting_line + headers + "\r\n" + body).encode()
 
@@ -24,9 +24,9 @@ class HttpResponse:
 
     @classmethod
     def from_bytes(cls, binary_data: bytes):
-        data = binary_data.decode().split("\r\n\n", 1)
+        data = binary_data.decode().split("\r\n\r\n", 1)
         starting_line = data[0].split("\r\n", 1)[0]
-        status_code = starting_line.split()[1]
+        status_code = int(starting_line.split()[1])
         if len(data) > 1:
             body = json.loads(data[1])
         else:
