@@ -1,5 +1,5 @@
 import pytest
-from http import HttpRequest, HttpResponse
+from http_handle import HttpRequest, HttpResponse
 
 def test_http_request() -> None:
     # Пример запроса на сервер
