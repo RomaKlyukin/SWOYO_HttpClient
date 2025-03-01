@@ -1,4 +1,4 @@
-import pytest
+import json
 from http_handle import HttpRequest, HttpResponse
 
 def test_http_request() -> None:
@@ -9,7 +9,7 @@ def test_http_request() -> None:
         method='POST',
         target='/send_sms',
         headers={'Content-Type': 'application/json', 'Authorization': 'Basic YWRtaW46cm9vdA=='},
-        body={'sender': '1234567890', 'recipient': '1234554321', 'message': 'Checking connection'}
+        body=json.dumps({'sender': '1234567890', 'recipient': '1234554321', 'message': 'Checking connection'})
     )
     
     # Ожидаемое байтовое представление запроса
