@@ -34,17 +34,18 @@ def main() -> None:
     # Отправляем сообщение и получаем Http-ответ
     response = sms_service.send_sms(params[1], params[2], params[3])
     
-    if response.status_code >= 400:
-        logging.error(f"Ответ от сервера: {response.status_code} {response.body}")
-    else:
-        logging.info(f"Ответ от сервера: {response.status_code} {response.body}")
     
     # Проверяем смогли ли мы подключиться к серверу и получить ответ
     if response == -1:
         print("Не удалось подключиться к серверу")
+        return
     else:
         print(f"Код ответа: {response.status_code}\nТело ответа: {response.body}")
 
+    if response.status_code >= 400:
+        logging.error(f"Ответ от сервера: {response.status_code} {response.body}")
+    else:
+        logging.info(f"Ответ от сервера: {response.status_code} {response.body}")
 
 if __name__ == "__main__":
     main()
